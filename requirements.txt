@@ -1,0 +1,9 @@
+Flask==2.0.2
+torch==2.0.0
+torchaudio==2.0.0
+pymilvus==2.4.0
+werkzeug==2.0.2
+tensorflow==2.13.1
+grpcio==1.49.1
+
+
