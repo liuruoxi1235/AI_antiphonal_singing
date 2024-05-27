@@ -40,10 +40,12 @@ services:
     image: milvusdb/milvus:v2.4.1
     container_name: milvus-standalone
     environment:
-      ETCD_ENDPOINTS: etcd:2379
-      MINIO_ADDRESS: minio:9000
+      ETCD_ENDPOINTS: milvus-etcd:2379
+      MINIO_ADDRESS: milvus-minio:9000
+      LOG_LEVEL: debug  # Add this line to enable detailed logging
     volumes:
       - milvus_data:/var/lib/milvus
+      - ./milvus_logs:/var/log/milvus  # Ensure logs are captured
     command: ["milvus", "run", "standalone"]
     ports:
       - "19530:19530"
@@ -63,7 +65,7 @@ services:
     volumes:
       - ./uploads:/app/uploads
     ports:
-      - "5001:5000"  # Change the host port to 5001
+      - "5001:5000"
     depends_on:
       - milvus-standalone
 
@@ -71,3 +73,4 @@ volumes:
   etcd_data:
   minio_data:
   milvus_data:
+  milvus_logs:
