@@ -20,8 +20,8 @@ def store_vector(file_path, collection_name):
     collection.load()
 
     # Vectorize and insert data into the collection
-    vectorizer = AudioVectorizer("path/to/ResNet38_mAP=0.434.pth")
-    mfcc_vector = vectorizer.vectorize(file_path).flatten().tolist()
+    vectorizer = AudioVectorizer()
+    mfcc_vector = vectorizer.extract_features(file_path).flatten().tolist()
     ids = [collection.num_entities]
     vectors = [mfcc_vector]
 

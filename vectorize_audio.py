@@ -11,8 +11,11 @@ class AudioVectorizer:
     def extract_features(self, file_path):
         # Load the audio file
         y, sr = librosa.load(file_path, sr=16000)
-        # Convert the waveform to the expected input shape for VGGish
-        waveform = y.reshape(1, -1)
+        # Ensure the waveform data is of the expected shape
+        waveform = np.array(y, dtype=np.float32)
+        # VGGish expects a waveform with shape (num_samples,)
+        # The input shape to the model should be (batch_size, num_samples)
+        waveform = np.expand_dims(waveform, axis=0)  # Add batch dimension
         # Extract features using VGGish
         embeddings = self.model(waveform)
         return embeddings.numpy()
