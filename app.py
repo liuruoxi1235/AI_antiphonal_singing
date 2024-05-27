@@ -20,7 +20,7 @@ connections.connect("default", host=milvus_host, port=milvus_port)
 # Define a collection schema
 fields = [
     FieldSchema(name="id", dtype=DataType.INT64, is_primary=True),
-    FieldSchema(name="vector", dtype=DataType.FLOAT_VECTOR, dim=527)
+    FieldSchema(name="vector", dtype=DataType.FLOAT_VECTOR, dim=768)
 ]
 schema = CollectionSchema(fields, description="audio collection")
 

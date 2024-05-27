@@ -8,7 +8,7 @@ def store_vector(file_path, collection_name):
     # Define a collection schema
     fields = [
         FieldSchema(name="id", dtype=DataType.INT64, is_primary=True),
-        FieldSchema(name="vector", dtype=DataType.FLOAT_VECTOR, dim=527)
+        FieldSchema(name="vector", dtype=DataType.FLOAT_VECTOR, dim=768)
     ]
     schema = CollectionSchema(fields, description=f"{collection_name} collection")
 

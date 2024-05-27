@@ -1,23 +1,22 @@
 import numpy as np
-import tensorflow as tf
-import tensorflow_hub as hub
+import torch
+from transformers import Wav2Vec2Model, Wav2Vec2Processor
 import librosa
 
 class AudioVectorizer:
     def __init__(self):
-        self.model_url = "https://tfhub.dev/google/vggish/1"
-        self.model = hub.load(self.model_url)
+        self.processor = Wav2Vec2Processor.from_pretrained("facebook/wav2vec2-base-960h")
+        self.model = Wav2Vec2Model.from_pretrained("facebook/wav2vec2-base-960h")
 
     def extract_features(self, file_path):
         # Load the audio file
         y, sr = librosa.load(file_path, sr=16000)
         # Ensure the waveform data is of the expected shape
-        waveform = np.array(y, dtype=np.float32)
-        # VGGish expects a waveform with shape (num_samples,)
-        # The input shape to the model should be (batch_size, num_samples)
-        waveform = np.expand_dims(waveform, axis=0)  # Add batch dimension
-        # Extract features using VGGish
-        embeddings = self.model(waveform)
+        input_values = self.processor(y, return_tensors="pt", sampling_rate=16000).input_values
+        with torch.no_grad():
+            embeddings = self.model(input_values).last_hidden_state
+        # Average the embeddings over the time dimension
+        embeddings = torch.mean(embeddings, dim=1)
         return embeddings.numpy()
 
 if __name__ == "__main__":
