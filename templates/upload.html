@@ -9,6 +9,8 @@
     <h2>Upload to Long-term Collection</h2>
     <form action="{{ url_for('upload_long_term') }}" method="post" enctype="multipart/form-data">
         <input type="file" name="file">
+        <label for="id">Optional ID:</label>
+        <input type="text" name="id">
         <input type="submit" value="Upload to Long-term">
     </form>
     
@@ -18,6 +20,19 @@
         <input type="submit" value="Upload to Short-term">
     </form>
 
-    <a href="{{ url_for('uploaded_files') }}">See Uploaded Files</a>
+    <h2>Upload to Wav Collection</h2>
+    <form action="{{ url_for('upload_wav') }}" method="post" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <label for="id">Optional ID:</label>
+        <input type="text" name="id">
+        <input type="submit" value="Upload to Wav Collection">
+    </form>
+
+    <h2>Clean Collections</h2>
+    <form action="{{ url_for('clean_collections_route') }}" method="post">
+        <input type="submit" value="Clean All Collections">
+    </form>
+
+    <a href="{{ url_for('uploaded_files.uploaded_files') }}">See Uploaded Files</a>
 </body>
 </html>

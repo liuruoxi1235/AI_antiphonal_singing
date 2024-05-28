@@ -75,7 +75,7 @@ services:
     volumes:
       - ./uploads:/app/uploads
     ports:
-      - "5001:5001"
+      - "5002:5002"
     depends_on:
       - milvus-standalone
     environment:

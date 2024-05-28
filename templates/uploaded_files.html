@@ -8,7 +8,13 @@
     <h1>Uploaded Files</h1>
     <ul>
         {% for file in files %}
-            <li>{{ file }}</li>
+            <li>
+                <a href="{{ url_for('uploaded_files.uploaded_file', filename=file) }}">{{ file }}</a>
+                <audio controls>
+                    <source src="{{ url_for('uploaded_files.uploaded_file', filename=file) }}" type="audio/wav">
+                    Your browser does not support the audio element.
+                </audio>
+            </li>
         {% endfor %}
     </ul>
     <a href="{{ url_for('index') }}">Upload Another File</a>
